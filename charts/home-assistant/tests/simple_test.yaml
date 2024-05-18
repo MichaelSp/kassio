@@ -1,0 +1,9 @@
+suite: Simple Test Suite
+templates:
+- deployment.yaml
+chart:
+  version: 0.1.0
+tests:
+- it: Matches the snapshot
+  asserts:
+  - matchSnapshot: { }
