@@ -95,12 +95,12 @@ has /dev/ttyUSB0:
               volumeMounts:
                 - mountPath: /dev/ttyUSB0
                   name: ttyUSB0
-                  subPath: null
           securityContext: {}
           serviceAccountName: RELEASE-NAME-home-assistant
           volumes:
             - hostPath:
-                path: map[path:/dev/ttyUSB0]
+                path: /dev/ttyUSB0
+                type: CharDevice
               name: ttyUSB0
 has config:
   1: |

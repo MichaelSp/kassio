@@ -72,7 +72,9 @@ Create volume mounts for the container
 {{- range $mount := .Values.volumeMounts }}
 - name: {{ $mount.name }}
   mountPath: {{ $mount.mountPath }}
+  {{- if $mount.subPath }}
   subPath: {{ $mount.subPath }}
+  {{- end }}
 {{- end }}
 {{- end }}
 
@@ -97,7 +99,8 @@ Create volumes for the container
   {{- end }}
   {{- if $volume.hostPath }}
   hostPath:
-    path: {{ $volume.hostPath }}
+    path: {{ $volume.hostPath.path }}
+    type: {{ $volume.hostPath.type }}
   {{- end }}
 {{- end }}
 {{- end }}

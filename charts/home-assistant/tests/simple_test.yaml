@@ -22,6 +22,7 @@ tests:
     - name: ttyUSB0
       hostPath:
         path: /dev/ttyUSB0
+        type: CharDevice
     volumeMounts:
     - name: ttyUSB0
       mountPath: /dev/ttyUSB0
