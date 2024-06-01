@@ -14,18 +14,8 @@ jobs:
   release:
     runs-on: ubuntu-20.04
     steps:
-      - name: Generate Token
-        uses: tibdex/github-app-token@v1
-        id: generate-token
-        with:
-          app_id: ${{ secrets.K8S_AT_HOME_APP_ID }}
-          private_key: ${{ secrets.K8S_AT_HOME_APP_PRIVATE_KEY }}
-
       - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          token: ${{ steps.generate-token.outputs.token }}
-          fetch-depth: 0
+        uses: actions/checkout@v4
 
       - name: Install Kubernetes tools
         uses: yokawasa/action-setup-kube-tools@v0.8.2
@@ -79,10 +69,6 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          token: ${{ steps.generate-token.outputs.token }}
-          ref: ${{ steps.save-commit-hash.outputs.commit_hash }}
-          fetch-depth: 0
 
       - name: Configure Git
         run: |
@@ -91,11 +77,8 @@ jobs:
 
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.4.0
-        with:
-          charts_dir: charts/*
-          charts_repo_url: https://k8s-at-home.com/charts/
         env:
-          CR_TOKEN: "${{ steps.generate-token.outputs.token }}"
+          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
           CR_SKIP_EXISTING: "true"
 
   generate-summary:
@@ -104,19 +87,8 @@ jobs:
     needs:
       - release
     steps:
-      - name: Generate Token
-        uses: tibdex/github-app-token@v1
-        id: generate-token
-        with:
-          app_id: ${{ secrets.K8S_AT_HOME_APP_ID }}
-          private_key: ${{ secrets.K8S_AT_HOME_APP_PRIVATE_KEY }}
-
       - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          token: ${{ steps.generate-token.outputs.token }}
-          ref: master
-          fetch-depth: 0
+        uses: actions/checkout@v4
 
       - name: Install yq
         uses: chrisdickinson/setup-yq@latest
