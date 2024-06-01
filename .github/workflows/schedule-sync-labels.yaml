@@ -11,6 +11,11 @@ jobs:
     name: Sync Labels
     runs-on: ubuntu-latest
     if: github.repository == 'MichaelSp/kassio'
+    permissions:
+      permissions:
+        contents: read
+        pull-requests: write
+        issues: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
