@@ -21,29 +21,11 @@ jobs:
           fetch-depth: 0
           ref: ${{ inputs.checkoutCommit }}
 
-      - name: Install Kubernetes tools
-        uses: yokawasa/action-setup-kube-tools@v0.11.1
+      - uses: d3adb5/helm-unittest-action@v2
         with:
-          setup-tools: |
-            helmv3
-          helm: "3.8.0"
-
-      - name: Install Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 2.7
-
-      - name: Install dependencies
-        env:
-          RUBYJQ_USE_SYSTEM_LIBRARIES: 1
-        run: |
-          sudo apt-get update
-          sudo apt-get install libjq-dev
-          bundle install
-
-      - name: Run tests
-        run: |
-          bundle exec m -r ./test/
+          helm-version: v3.8.0
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - run: helm lint charts/*
 
   generate-install-matrix:
     name: Generate matrix for install
