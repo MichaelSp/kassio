@@ -103,6 +103,10 @@ volumes: []
 #   secret:
 #     secretName: mysecret
 #     optional: false
+# - name: usb
+#   hostPath:
+#     path: /dev/ttyUSB0
+
 
 # Additional volumeMounts on the output Deployment definition.
 volumeMounts: []

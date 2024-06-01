@@ -16,3 +16,14 @@ tests:
         enabled: true
   asserts:
   - matchSnapshot: {}
+- it: has /dev/ttyUSB0
+  set:
+    volumes:
+    - name: ttyUSB0
+      hostPath:
+        path: /dev/ttyUSB0
+    volumeMounts:
+    - name: ttyUSB0
+      mountPath: /dev/ttyUSB0
+  asserts:
+  - matchSnapshot: {}

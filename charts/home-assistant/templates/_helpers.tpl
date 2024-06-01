@@ -95,5 +95,9 @@ Create volumes for the container
   configMap:
     name: {{ $volume.configMap }}
   {{- end }}
+  {{- if $volume.hostPath }}
+  hostPath:
+    path: {{ $volume.hostPath }}
+  {{- end }}
 {{- end }}
 {{- end }}
