@@ -11,6 +11,7 @@ Matches the snapshot:
         helm.sh/chart: home-assistant-0.1.0
       name: RELEASE-NAME-home-assistant
     spec:
+      affinity: {}
       replicas: 1
       selector:
         matchLabels:
