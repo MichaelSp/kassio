@@ -11,6 +11,10 @@ on:
       - ready_for_review
       - synchronize
 
+permissions:
+  contents: read
+  pull-requests: write
+
 jobs:
   label-size:
     name: Label Size
