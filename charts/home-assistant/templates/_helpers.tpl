@@ -60,3 +60,40 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+Create volume mounts for the container
+*/}}
+{{- define "home-assistant.volumeMounts" -}}
+{{- if and .Values.persistence.config.enabled .Values.persistence.config.enabled }}
+- name: home-assistant-config
+  mountPath: /config
+{{- end }}
+{{- range $mount := .Values.volumeMounts }}
+- name: {{ $mount.name }}
+  mountPath: {{ $mount.mountPath }}
+  subPath: {{ $mount.subPath }}
+{{- end }}
+{{- end }}
+
+{{/*
+Create volumes for the container
+*/}}
+{{- define "home-assistant.volumes" -}}
+{{- if and .Values.persistence.config.enabled .Values.persistence.config.enabled }}
+- name: home-assistant-config
+  persistentVolumeClaim:
+    claimName: {{ if .Values.persistence.config.existingClaim }}{{.Values.persistence.config.existingClaim}}{{- else }} {{ include "home-assistant.fullname" . }}-config{{- end }}
+{{- end }}
+{{- range $volume := .Values.volumes }}
+- name: {{ $volume.name }}
+  {{- if $volume.secret }}
+  secret:
+    secretName: {{ $volume.secret }}
+  {{- end }}
+  {{- if $volume.configMap }}
+  configMap:
+    name: {{ $volume.configMap }}
+  {{- end }}
+{{- end }}
+{{- end }}
