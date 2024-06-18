@@ -41,7 +41,7 @@ def main(
     check_branch: str = typer.Option(
         None, help="The branch to compare against."),
     chart_base_folder: Path = typer.Option(
-        "charts", help="The base folder where the charts reside."),
+        ".", help="The base folder where the charts reside."),
     debug: bool = False,
 ):
     _setup_logging(debug)
