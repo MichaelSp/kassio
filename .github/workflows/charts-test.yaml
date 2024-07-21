@@ -90,10 +90,8 @@ jobs:
       - name: Set up chart-testing
         uses: helm/chart-testing-action@v2.6.1
 
-      - name: Create k3d cluster
-        uses: nolar/setup-k3d-k3s@v1
-        with:
-          version: v1.19
+      - name: Create local cluster
+        uses: helm/kind-action@v1
 
       - name: Remove node taints
         run: |
