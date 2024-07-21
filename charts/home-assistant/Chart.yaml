@@ -2,7 +2,7 @@ apiVersion: v2
 name: home-assistant
 description: A Helm chart for Kubernetes
 annotations:
-  artifacthub.io/changes: "none"
+  artifacthub.io/changes: "support for config via helm values"
 
 # A chart can be either an 'application' or a 'library' chart.
 #
