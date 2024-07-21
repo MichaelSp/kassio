@@ -2,7 +2,7 @@ Matches the snapshot:
   1: |
     apiVersion: v1
     data:
-      configuration.yaml: |-
+      configuration.yaml: |
         # Loads default set of integrations. Do not remove.
         default_config:
         # Load frontend themes from the themes folder
@@ -106,7 +106,7 @@ has /dev/ttyUSB0:
   1: |
     apiVersion: v1
     data:
-      configuration.yaml: |-
+      configuration.yaml: |
         # Loads default set of integrations. Do not remove.
         default_config:
         # Load frontend themes from the themes folder
@@ -216,7 +216,7 @@ has config:
   1: |
     apiVersion: v1
     data:
-      configuration.yaml: |-
+      configuration.yaml: |
         # Loads default set of integrations. Do not remove.
         default_config:
         # Load frontend themes from the themes folder
