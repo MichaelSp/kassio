@@ -52,7 +52,7 @@ jobs:
         run: |
           [ -f .github/ct-install.yaml ] || echo "target-branch: main" > .github/ct-install.yaml
           EXCLUDED=$(yq eval -o=json '.excluded-charts // []' .github/ct-install.yaml)
-          CHARTS=$(ct list-changed --target-branch main --config .github/ct-install.yaml)
+          CHARTS=$(ct list-changed --config .github/ct-install.yaml)
           CHARTS_JSON=$(echo "${CHARTS}" | jq -R -s -c 'split("\n")[:-1]')
           OUTPUT_JSON=$(echo "{\"excluded\": ${EXCLUDED}, \"all\": ${CHARTS_JSON}}" | jq -c '.all-.excluded')
           echo ::set-output name=charts::${OUTPUT_JSON}
@@ -98,7 +98,9 @@ jobs:
           kubectl taint --all=true nodes node.cloudprovider.kubernetes.io/uninitialized- || true
 
       - name: Run chart-testing (install)
-        run: ct install --config .github/ct-install.yaml --charts ${{ matrix.chart }}
+        run: |
+          [ -f .github/ct-install.yaml ] || echo "target-branch: main" > .github/ct-install.yaml
+          ct install --config .github/ct-install.yaml --charts ${{ matrix.chart }}
 
   # Summarize matrix https://github.community/t/status-check-for-a-matrix-jobs/127354/7
   install_success:
