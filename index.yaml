@@ -2,6 +2,25 @@ apiVersion: v1
 entries:
   home-assistant:
   - annotations:
+      artifacthub.io/changes: support for config via helm values
+    apiVersion: v2
+    appVersion: "2024.7"
+    created: "2024-07-21T16:35:13.496915604Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: oci://registry-1.docker.io/bitnamicharts
+      version: 15.5.14
+    description: A Helm chart for Kubernetes
+    digest: 2cc65afebbc00ac58c82b45378e1fde846f58dee2559984ebde310f1dc1784a9
+    maintainers:
+    - name: kassio
+    name: home-assistant
+    type: application
+    urls:
+    - https://github.com/MichaelSp/kassio/releases/download/home-assistant-0.7.2/home-assistant-0.7.2.tgz
+    version: 0.7.2
+  - annotations:
       artifacthub.io/changes: none
     apiVersion: v2
     appVersion: "2024.7"
@@ -63,4 +82,4 @@ entries:
     urls:
     - https://github.com/MichaelSp/kassio/releases/download/home-assistant-0.1.1/home-assistant-0.1.1.tgz
     version: 0.1.1
-generated: "2024-07-07T15:40:05.328017151Z"
+generated: "2024-07-21T16:35:13.496931505Z"
