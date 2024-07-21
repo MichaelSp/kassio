@@ -1,109 +1,21 @@
 Matches the snapshot:
   1: |
-    apiVersion: apps/v1
-    kind: Deployment
+    apiVersion: v1
+    data:
+      configuration.yaml: |
+        # Loads default set of integrations. Do not remove.
+        default_config:
+        # Load frontend themes from the themes folder
+        frontend:
+          themes: !include_dir_merge_named themes
+
+        automation: !include automations.yaml
+        script: !include scripts.yaml
+        scene: !include scenes.yaml
+    kind: ConfigMap
     metadata:
-      labels:
-        app.kubernetes.io/instance: RELEASE-NAME
-        app.kubernetes.io/managed-by: Helm
-        app.kubernetes.io/name: home-assistant
-        app.kubernetes.io/version: 1.2.3
-        helm.sh/chart: home-assistant-0.1.0
-      name: RELEASE-NAME-home-assistant
-    spec:
-      replicas: 1
-      selector:
-        matchLabels:
-          app.kubernetes.io/instance: RELEASE-NAME
-          app.kubernetes.io/name: home-assistant
-      template:
-        metadata:
-          labels:
-            app.kubernetes.io/instance: RELEASE-NAME
-            app.kubernetes.io/managed-by: Helm
-            app.kubernetes.io/name: home-assistant
-            app.kubernetes.io/version: 1.2.3
-            helm.sh/chart: home-assistant-0.1.0
-        spec:
-          containers:
-            - image: ghcr.io/home-assistant/home-assistant:1.2.3
-              imagePullPolicy: IfNotPresent
-              livenessProbe:
-                httpGet:
-                  path: /
-                  port: http
-              name: home-assistant
-              ports:
-                - containerPort: 8123
-                  name: http
-                  protocol: TCP
-              readinessProbe:
-                httpGet:
-                  path: /
-                  port: http
-              resources: {}
-              securityContext: {}
-              volumeMounts: null
-          securityContext: {}
-          serviceAccountName: RELEASE-NAME-home-assistant
-          volumes: null
-has /dev/ttyUSB0:
-  1: |
-    apiVersion: apps/v1
-    kind: Deployment
-    metadata:
-      labels:
-        app.kubernetes.io/instance: RELEASE-NAME
-        app.kubernetes.io/managed-by: Helm
-        app.kubernetes.io/name: home-assistant
-        app.kubernetes.io/version: 1.2.3
-        helm.sh/chart: home-assistant-0.1.0
-      name: RELEASE-NAME-home-assistant
-    spec:
-      replicas: 1
-      selector:
-        matchLabels:
-          app.kubernetes.io/instance: RELEASE-NAME
-          app.kubernetes.io/name: home-assistant
-      template:
-        metadata:
-          labels:
-            app.kubernetes.io/instance: RELEASE-NAME
-            app.kubernetes.io/managed-by: Helm
-            app.kubernetes.io/name: home-assistant
-            app.kubernetes.io/version: 1.2.3
-            helm.sh/chart: home-assistant-0.1.0
-        spec:
-          containers:
-            - image: ghcr.io/home-assistant/home-assistant:1.2.3
-              imagePullPolicy: IfNotPresent
-              livenessProbe:
-                httpGet:
-                  path: /
-                  port: http
-              name: home-assistant
-              ports:
-                - containerPort: 8123
-                  name: http
-                  protocol: TCP
-              readinessProbe:
-                httpGet:
-                  path: /
-                  port: http
-              resources: {}
-              securityContext: {}
-              volumeMounts:
-                - mountPath: /dev/ttyUSB0
-                  name: ttyUSB0
-          securityContext: {}
-          serviceAccountName: RELEASE-NAME-home-assistant
-          volumes:
-            - hostPath:
-                path: /dev/ttyUSB0
-                type: CharDevice
-              name: ttyUSB0
-has config:
-  1: |
+      name: RELEASE-NAME-home-assistant-config
+  2: |
     apiVersion: apps/v1
     kind: Deployment
     metadata:
@@ -153,6 +65,251 @@ has config:
           securityContext: {}
           serviceAccountName: RELEASE-NAME-home-assistant
           volumes:
-            - name: home-assistant-config
-              persistentVolumeClaim:
-                claimName: RELEASE-NAME-home-assistant-config
+            - configMap:
+                name: RELEASE-NAME-home-assistant-config
+              name: home-assistant-config
+  3: |
+    apiVersion: v1
+    kind: Service
+    metadata:
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: home-assistant
+        app.kubernetes.io/version: 1.2.3
+        helm.sh/chart: home-assistant-0.1.0
+      name: RELEASE-NAME-home-assistant
+    spec:
+      ports:
+        - name: http
+          port: 8123
+          protocol: TCP
+          targetPort: http
+      selector:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/name: home-assistant
+      type: ClusterIP
+  4: |
+    apiVersion: v1
+    automountServiceAccountToken: true
+    kind: ServiceAccount
+    metadata:
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: home-assistant
+        app.kubernetes.io/version: 1.2.3
+        helm.sh/chart: home-assistant-0.1.0
+      name: RELEASE-NAME-home-assistant
+has /dev/ttyUSB0:
+  1: |
+    apiVersion: v1
+    data:
+      configuration.yaml: |
+        # Loads default set of integrations. Do not remove.
+        default_config:
+        # Load frontend themes from the themes folder
+        frontend:
+          themes: !include_dir_merge_named themes
+
+        automation: !include automations.yaml
+        script: !include scripts.yaml
+        scene: !include scenes.yaml
+    kind: ConfigMap
+    metadata:
+      name: RELEASE-NAME-home-assistant-config
+  2: |
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: home-assistant
+        app.kubernetes.io/version: 1.2.3
+        helm.sh/chart: home-assistant-0.1.0
+      name: RELEASE-NAME-home-assistant
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          app.kubernetes.io/instance: RELEASE-NAME
+          app.kubernetes.io/name: home-assistant
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/instance: RELEASE-NAME
+            app.kubernetes.io/managed-by: Helm
+            app.kubernetes.io/name: home-assistant
+            app.kubernetes.io/version: 1.2.3
+            helm.sh/chart: home-assistant-0.1.0
+        spec:
+          containers:
+            - image: ghcr.io/home-assistant/home-assistant:1.2.3
+              imagePullPolicy: IfNotPresent
+              livenessProbe:
+                httpGet:
+                  path: /
+                  port: http
+              name: home-assistant
+              ports:
+                - containerPort: 8123
+                  name: http
+                  protocol: TCP
+              readinessProbe:
+                httpGet:
+                  path: /
+                  port: http
+              resources: {}
+              securityContext: {}
+              volumeMounts:
+                - mountPath: /config
+                  name: home-assistant-config
+                - mountPath: /dev/ttyUSB0
+                  name: ttyUSB0
+          securityContext: {}
+          serviceAccountName: RELEASE-NAME-home-assistant
+          volumes:
+            - configMap:
+                name: RELEASE-NAME-home-assistant-config
+              name: home-assistant-config
+            - hostPath:
+                path: /dev/ttyUSB0
+                type: CharDevice
+              name: ttyUSB0
+  3: |
+    apiVersion: v1
+    kind: Service
+    metadata:
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: home-assistant
+        app.kubernetes.io/version: 1.2.3
+        helm.sh/chart: home-assistant-0.1.0
+      name: RELEASE-NAME-home-assistant
+    spec:
+      ports:
+        - name: http
+          port: 8123
+          protocol: TCP
+          targetPort: http
+      selector:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/name: home-assistant
+      type: ClusterIP
+  4: |
+    apiVersion: v1
+    automountServiceAccountToken: true
+    kind: ServiceAccount
+    metadata:
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: home-assistant
+        app.kubernetes.io/version: 1.2.3
+        helm.sh/chart: home-assistant-0.1.0
+      name: RELEASE-NAME-home-assistant
+has config:
+  1: |
+    apiVersion: v1
+    data:
+      configuration.yaml: |
+        # Loads default set of integrations. Do not remove.
+        default_config:
+        # Load frontend themes from the themes folder
+        frontend:
+          themes: !include_dir_merge_named themes
+
+        automation: !include automations.yaml
+        script: !include scripts.yaml
+        scene: !include scenes.yaml
+    kind: ConfigMap
+    metadata:
+      name: RELEASE-NAME-home-assistant-config
+  2: |
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: home-assistant
+        app.kubernetes.io/version: 1.2.3
+        helm.sh/chart: home-assistant-0.1.0
+      name: RELEASE-NAME-home-assistant
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          app.kubernetes.io/instance: RELEASE-NAME
+          app.kubernetes.io/name: home-assistant
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/instance: RELEASE-NAME
+            app.kubernetes.io/managed-by: Helm
+            app.kubernetes.io/name: home-assistant
+            app.kubernetes.io/version: 1.2.3
+            helm.sh/chart: home-assistant-0.1.0
+        spec:
+          containers:
+            - image: ghcr.io/home-assistant/home-assistant:1.2.3
+              imagePullPolicy: IfNotPresent
+              livenessProbe:
+                httpGet:
+                  path: /
+                  port: http
+              name: home-assistant
+              ports:
+                - containerPort: 8123
+                  name: http
+                  protocol: TCP
+              readinessProbe:
+                httpGet:
+                  path: /
+                  port: http
+              resources: {}
+              securityContext: {}
+              volumeMounts:
+                - mountPath: /config
+                  name: home-assistant-config
+          securityContext: {}
+          serviceAccountName: RELEASE-NAME-home-assistant
+          volumes:
+            - configMap:
+                name: RELEASE-NAME-home-assistant-config
+              name: home-assistant-config
+  3: |
+    apiVersion: v1
+    kind: Service
+    metadata:
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: home-assistant
+        app.kubernetes.io/version: 1.2.3
+        helm.sh/chart: home-assistant-0.1.0
+      name: RELEASE-NAME-home-assistant
+    spec:
+      ports:
+        - name: http
+          port: 8123
+          protocol: TCP
+          targetPort: http
+      selector:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/name: home-assistant
+      type: ClusterIP
+  4: |
+    apiVersion: v1
+    automountServiceAccountToken: true
+    kind: ServiceAccount
+    metadata:
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: home-assistant
+        app.kubernetes.io/version: 1.2.3
+        helm.sh/chart: home-assistant-0.1.0
+      name: RELEASE-NAME-home-assistant
