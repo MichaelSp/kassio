@@ -1,6 +1,8 @@
 apiVersion: v2
 name: home-assistant
 description: A Helm chart for Kubernetes
+maintainers:
+  - name: kassio
 annotations:
   artifacthub.io/changes: "support for config via helm values"
 
