@@ -50,7 +50,7 @@ jobs:
         id: list-changed
         if: inputs.chartChangesDetected == 'true'
         run: |
-          [ -f .github/ct-install.yaml ] || touch .github/ct-install.yaml
+          [ -f .github/ct-install.yaml ] || echo "target-branch: main" > .github/ct-install.yaml
           EXCLUDED=$(yq eval -o=json '.excluded-charts // []' .github/ct-install.yaml)
           CHARTS=$(ct list-changed --target-branch main --config .github/ct-install.yaml)
           CHARTS_JSON=$(echo "${CHARTS}" | jq -R -s -c 'split("\n")[:-1]')
