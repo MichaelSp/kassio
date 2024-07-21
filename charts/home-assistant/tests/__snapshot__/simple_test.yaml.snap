@@ -15,7 +15,6 @@ Matches the snapshot:
     kind: ConfigMap
     metadata:
       name: RELEASE-NAME-home-assistant-config
-      namespace: home
   2: |
     apiVersion: apps/v1
     kind: Deployment
@@ -119,7 +118,6 @@ has /dev/ttyUSB0:
     kind: ConfigMap
     metadata:
       name: RELEASE-NAME-home-assistant-config
-      namespace: home
   2: |
     apiVersion: apps/v1
     kind: Deployment
@@ -229,7 +227,6 @@ has config:
     kind: ConfigMap
     metadata:
       name: RELEASE-NAME-home-assistant-config
-      namespace: home
   2: |
     apiVersion: apps/v1
     kind: Deployment
