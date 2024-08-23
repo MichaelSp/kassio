@@ -65,8 +65,13 @@ Create the name of the service account to use
 Create volume mounts for the container
 */}}
 {{- define "home-assistant.volumeMounts" -}}
-- name: home-assistant-config
+- name: {{ include "home-assistant.fullname" . }}-config-yaml
+  mountPath: /config/configuration.yaml
+  subPath: configuration.yaml
+{{- if or .Values.persistence.config.enabled }}
+- name: {{ include "home-assistant.fullname" . }}-config
   mountPath: /config
+{{- end }}
 {{- range $mount := .Values.volumeMounts }}
 - name: {{ $mount.name }}
   mountPath: {{ $mount.mountPath }}
@@ -80,9 +85,14 @@ Create volume mounts for the container
 Create volumes for the container
 */}}
 {{- define "home-assistant.volumes" -}}
-- name: home-assistant-config
+- name: {{ include "home-assistant.fullname" . }}-config-yaml
   configMap:
     name: {{ include "home-assistant.fullname" . }}-config
+{{- if .Values.persistence.config.enabled }}
+- name: {{ include "home-assistant.fullname" . }}-config
+  persistentVolumeClaim:
+    claimName: {{ if .Values.persistence.config.existingClaim }}{{.Values.persistence.config.existingClaim}}{{- else }} {{ include "home-assistant.fullname" . }}-config{{- end }}
+{{- end }}
 {{- range $volume := .Values.volumes }}
 - name: {{ $volume.name }}
   {{- if $volume.secret }}

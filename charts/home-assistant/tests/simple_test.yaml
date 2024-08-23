@@ -19,6 +19,16 @@ tests:
         enabled: true
   asserts:
   - matchSnapshot: {}
+- it: has extraConfigYaml
+  set:
+    configuration:
+      extraConfigYaml: |
+        some: thing
+        other:
+          complex:
+            stuff
+  asserts:
+  - matchSnapshot: {}
 - it: has /dev/ttyUSB0
   set:
     volumes:

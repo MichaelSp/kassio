@@ -48,6 +48,35 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
             {{- include "home-assistant.volumeMounts" . | nindent 12 }}
+      {{- if .Values.postgresql.enabled }}
+      initContainers:
+        - name: init-db
+          image: alpine:3.7
+          command: 
+            - "sh"
+            - "-c"
+            - |
+              DB_URL=postgresql://${DB_USER}:${DB_PASS}@${DB_HOST}/${DB_NAME};
+              if grep -q 'postgres_db_url' /config/secrets.yaml; then 
+                sed -i "s#postgres_db_url:.*#postgres_db_url: ${DB_URL}#" /config/secrets.yaml;
+              else 
+                echo "postgres_db_url: ${DB_URL}" >> /config/secrets.yaml;
+              fi
+          env:
+            - name: DB_HOST
+              value: {{ .Release.Name | trunc 63 | trimSuffix "-" }}-postgresql
+            - name: DB_USER
+              value: {{ default "postgres" .Values.postgresql.auth.username }}
+            - name: DB_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: {{ default (cat .Release.Name "-postgresql") .Values.postgresql.auth.existingSecret | trunc 63 | trimSuffix "-" }}
+                  key: postgres-password
+            - name: DB_NAME
+              value: {{ default "postgres" .Values.postgresql.auth.database }}
+          volumeMounts:
+            {{- include "home-assistant.volumeMounts" . | nindent 12 }}
+      {{- end }}
       volumes:    
         {{- include "home-assistant.volumes" . | nindent 8 }}
       {{- with .Values.nodeSelector }}
