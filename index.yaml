@@ -5,6 +5,23 @@ entries:
       artifacthub.io/changes: none
     apiVersion: v2
     appVersion: "2024.7"
+    created: "2024-08-26T20:28:17.635960834Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: oci://registry-1.docker.io/bitnamicharts
+      version: 15.5.24
+    description: A Helm chart for Kubernetes
+    digest: 9ebc8fb0bd5d0aa4e692151023f7cba790feda6aef84e0cee7be886af60590bf
+    name: home-assistant
+    type: application
+    urls:
+    - https://github.com/MichaelSp/kassio/releases/download/home-assistant-0.7.4/home-assistant-0.7.4.tgz
+    version: 0.7.4
+  - annotations:
+      artifacthub.io/changes: none
+    apiVersion: v2
+    appVersion: "2024.7"
     created: "2024-08-23T18:43:10.048559905Z"
     dependencies:
     - condition: postgresql.enabled
@@ -99,4 +116,4 @@ entries:
     urls:
     - https://github.com/MichaelSp/kassio/releases/download/home-assistant-0.1.1/home-assistant-0.1.1.tgz
     version: 0.1.1
-generated: "2024-08-23T18:43:10.048577037Z"
+generated: "2024-08-26T20:28:17.635992433Z"
