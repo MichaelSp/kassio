@@ -12,7 +12,7 @@ has metrics:
       name: RELEASE-NAME-home-assistant
     spec:
       endpoints:
-        - authorization: |2-
+        - authorization:
             credentials:
               key: bearer-token
               name: home-assistant-scrape-secrets

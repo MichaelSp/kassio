@@ -21,6 +21,5 @@ spec:
       scrapeTimeout: {{ . }}
       {{- end }}
       path: /api/prometheus
-      authorization: |
-        {{ .Values.metrics.serviceMonitor.authorization | toYaml | nindent 8 }}
+      authorization: {{ .Values.metrics.serviceMonitor.authorization | toYaml | nindent 8 }}
 {{- end }}
