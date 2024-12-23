@@ -1,0 +1,20 @@
+suite: Metrics Suite
+templates:
+  - servicemonitor.yaml
+chart:
+  version: 0.1.0
+  appVersion: 1.2.3
+tests:
+  - it: has metrics
+    set:
+      metrics:
+        enabled: true
+        prometheusRule:
+          enabled: false
+        serviceMonitor:
+          authorization:
+            credentials:
+              name: home-assistant-scrape-secrets
+              key: bearer-token
+    asserts:
+      - matchSnapshot: { }

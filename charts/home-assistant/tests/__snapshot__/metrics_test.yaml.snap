@@ -1,0 +1,26 @@
+has metrics:
+  1: |
+    apiVersion: monitoring.coreos.com/v1
+    kind: ServiceMonitor
+    metadata:
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: home-assistant
+        app.kubernetes.io/version: 1.2.3
+        helm.sh/chart: home-assistant-0.1.0
+      name: RELEASE-NAME-home-assistant
+    spec:
+      endpoints:
+        - authorization: |2-
+            credentials:
+              key: bearer-token
+              name: home-assistant-scrape-secrets
+          interval: 1m
+          path: /api/prometheus
+          port: http
+          scrapeTimeout: 30s
+      selector:
+        matchLabels:
+          app.kubernetes.io/instance: RELEASE-NAME
+          app.kubernetes.io/name: home-assistant
