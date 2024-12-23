@@ -21,15 +21,5 @@ spec:
       scrapeTimeout: {{ . }}
       {{- end }}
       path: /api/prometheus
-      {{- with .Values.metrics.serviceMonitor.bearerTokenFile }}
-      bearerTokenFile: {{ . }}
-      {{- end }}
-      {{- with .Values.metrics.serviceMonitor.bearerTokenSecret }}
-      bearerTokenSecret:
-        name: {{ .name }}
-        key: {{ .key }}
-        {{- with .optional }}
-        optional: {{ . }}
-        {{- end }}
-      {{- end }}
+      authorization: {{ .Values.metrics.serviceMonitor.authorization }}
 {{- end }}

@@ -170,12 +170,8 @@ metrics:
     interval: 1m
     scrapeTimeout: 30s
     labels: {}
-    ## See https://www.home-assistant.io/docs/authentication/ for where to find
-    ## long lived access token creation under your account profile, which is
-    ## needed to monitor Home Assistant
-    # bearerTokenSecret:
-    #   name: ""
-    #   key: ""
+    authorization:
+      credentials: { } # see https://prometheus-operator.dev/docs/api-reference/api/#monitoring.coreos.com/v1.SafeAuthorization
 
   # -- Enable and configure Prometheus Rules for the chart under this key.
   # @default -- See values.yaml
