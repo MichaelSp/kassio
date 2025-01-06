@@ -57,10 +57,13 @@ configuration:
 
     {{- if .Values.postgresql.enabled }}
     recorder:
-      auto_purge: true
-      purge_keep_days: 4000
+      auto_purge: {{ default "true" .Values.configuration.auto_purge }}
+      purge_keep_days: {{ default 4000 .Values.configuration.purge_keep_days }}
       db_url: !secret postgres_db_url
     {{ end -}}
+recorder:
+  purge_keep_days: 4000
+  auto_purge: true
 
 postgresql:
   enabled: false
