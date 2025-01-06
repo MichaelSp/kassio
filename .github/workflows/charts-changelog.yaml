@@ -42,6 +42,8 @@ jobs:
       - validate-changelog
     outputs:
       commitHash: ${{ steps.save-commit-hash.outputs.commit_hash }}
+    permissions:
+      contents: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
