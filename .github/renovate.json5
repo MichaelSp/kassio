@@ -6,7 +6,7 @@
       "matchDatasources": ["github-releases"],
       "matchPackageNames": ["home-assistant/core"],
       "versioning": "semver",
-      "extractVersion": "^appVersion:\\s*(\\d+\\.\\d+\\.\\d+)$",
+      "extractVersion": "^appVersion:\\s*\"?(\\d+\\.\\d+)\"?$",
       "fileMatch": ["^Chart\\.yaml$"]
     }
   ]
