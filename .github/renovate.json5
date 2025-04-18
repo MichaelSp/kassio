@@ -5,7 +5,7 @@
     {
       customType: "regex",
       fileMatch: ["^Chart\\.yaml$"],
-      matchStrings: ['^appVersion:\\s*"?(?<currentValue>\\d+\\.\\d+)"?$'],
+      matchStrings: ['^appVersion:\\s*"?(?<currentValue>\\d+\\.\\d+\\.(?:\\d+)?)"?$'],
       datasourceTemplate: "github-releases",
       versioningTemplate: "semver",
       depNameTemplate: "home-assistant/core",
