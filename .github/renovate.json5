@@ -1,16 +1,16 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["github>MichaelSp/MichaelSp//.github/renovate.json5"],
-  "customManagers": {
-    "home-assistant": {
-      "fileMatch": ["^Chart\\.yaml$"],
-      "extractVersion": "^appVersion:\\s*\"?(\\d+\\.\\d+)\"?$",
-      "versioning": "semver",
-      "datasourceTemplate": {
-        "datasource": "github-releases",
-        "depNameTemplate": "home-assistant/core",
-        "versioningTemplate": "semver"
-      }
-    }
-  },
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  extends: ["github>MichaelSp/MichaelSp//.github/renovate.json5"],
+  customManagers: [
+    {
+      customType: "regex",
+      fileMatch: ["^Chart\\.yaml$"],
+      matchStrings: '^appVersion:\\s*"?(\\d+\\.\\d+)"?$',
+      datasourceTemplate: {
+        datasource: "github-releases",
+        depNameTemplate: "home-assistant/core",
+        versioningTemplate: "semver",
+      },
+    },
+  ],
 }
