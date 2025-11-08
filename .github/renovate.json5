@@ -4,8 +4,11 @@
   customManagers: [
     {
       customType: "regex",
-      fileMatch: ["^Chart\\.yaml$"],
-      matchStrings: ['^appVersion:\\s*"?(?<currentValue>\\d+\\.\\d+\\.(?:\\d+)?)"?$'],
+      managerFilePatterns: ["/(^|/)Chart\\.yaml$/"],
+      matchStrings: [
+        '^appVersion:\\s*"?(?<currentValue>\\d+\\.\\d+(?:\\.\\d+)?)"?$',
+        'appVersion:\\s*"?(?<currentValue>[^$"]+)"?',
+      ],
       datasourceTemplate: "github-releases",
       versioningTemplate: "semver",
       depNameTemplate: "home-assistant/core",

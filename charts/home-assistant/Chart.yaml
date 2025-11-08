@@ -18,6 +18,10 @@ annotations:
 # pipeline. Library charts do not define any templates and therefore cannot be deployed.
 type: application
 
+maintainers:
+  - name: MichaelSp
+    email: 448282+MichaelSp@users.noreply.github.com
+
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
@@ -28,7 +32,7 @@ version: 0.25.11+build1
 # follow Semantic Versioning. They should reflect the version the application is using.
 # It is recommended to use it with quotes.
 # see https://github.com/home-assistant/core/releases
-appVersion: "2025.11"
+appVersion: "2025.11.1"
 
 dependencies:
   - name: postgresql
