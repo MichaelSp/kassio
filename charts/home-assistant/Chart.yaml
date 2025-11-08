@@ -1,8 +1,12 @@
+---
 apiVersion: v2
 name: home-assistant
 description: A Helm chart for Kubernetes
 annotations:
-  artifacthub.io/changes: "none"
+  artifacthub.io/changes: |-
+    - kind: changed
+      description: Upgraded `postgresql` chart dependency to version 18.1.7
+
 
 # A chart can be either an 'application' or a 'library' chart.
 #
