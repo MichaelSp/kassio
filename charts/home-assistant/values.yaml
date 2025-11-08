@@ -26,7 +26,7 @@ persistence:
 
 configuration:
   trustedProxies: []
-  # extraConfigYaml: 
+  # extraConfigYaml:
   template: |
     # Loads default set of integrations. Do not remove.
     default_config:
@@ -142,7 +142,7 @@ autoscaling:
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
 
-# Additional volumes on the output Deployment definition.
+  # Additional volumes on the output Deployment definition.
 volumes: []
 # - name: foo
 #   secret:
@@ -174,7 +174,7 @@ metrics:
     scrapeTimeout: 30s
     labels: {}
     authorization:
-      credentials: { } # see https://prometheus-operator.dev/docs/api-reference/api/#monitoring.coreos.com/v1.SafeAuthorization
+      credentials: {}  # see https://prometheus-operator.dev/docs/api-reference/api/#monitoring.coreos.com/v1.SafeAuthorization
 
   # -- Enable and configure Prometheus Rules for the chart under this key.
   # @default -- See values.yaml
