@@ -10,7 +10,7 @@
         '/^Chart\\.yaml$/',
       ],
       matchStrings: [
-        '^appVersion:\\s*"?(?<currentValue>\\d+\\.\\d+\\.(?:\\d+)?)"?$',
+        '^appVersion:\\s*"?(?<currentValue>\\d+\\.\\d+(?:\\.\\d+)?)"?$',
       ],
       datasourceTemplate: 'github-releases',
       versioningTemplate: 'semver',
