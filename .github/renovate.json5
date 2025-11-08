@@ -7,7 +7,7 @@
       "managerFilePatterns": ["/(^|/)Chart\\.yaml$/"],
       "matchStrings": [
         "^appVersion:\\s*\"?(?<currentValue>\\d+\\.\\d+(?:\\.\\d+)?)\"?$",
-        "appVersion:\s*"?(?<currentValue>[^\n\"]+)"?",
+        "appVersion:\s*\"?(?<currentValue>[^\n\"]+)\"?",
       ],
       datasourceTemplate: "github-releases",
       versioningTemplate: "semver",
