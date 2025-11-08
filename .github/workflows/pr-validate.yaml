@@ -28,6 +28,8 @@ jobs:
 
   charts-changelog:
     uses: MichaelSp/kassio/.github/workflows/charts-changelog.yaml@main
+    permissions:
+      contents: write
     needs:
       - pr-metadata
       - pre-commit-check
