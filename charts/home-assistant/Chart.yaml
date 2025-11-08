@@ -1,8 +1,12 @@
+---
 apiVersion: v2
 name: home-assistant
 description: A Helm chart for Kubernetes
 annotations:
-  artifacthub.io/changes: "none"
+  artifacthub.io/changes: |-
+    - kind: changed
+      description: Upgraded `postgresql` chart dependency to version 18.1.7
+
 
 # A chart can be either an 'application' or a 'library' chart.
 #
@@ -21,7 +25,7 @@ maintainers:
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 0.25.11
+version: 0.25.11+build1
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
@@ -32,6 +36,6 @@ appVersion: "2025.11.1"
 
 dependencies:
   - name: postgresql
-    version: 16.7.27
+    version: 18.1.7
     repository: oci://registry-1.docker.io/bitnamicharts
     condition: postgresql.enabled
