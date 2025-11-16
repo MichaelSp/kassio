@@ -8,6 +8,8 @@ spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
+  strategy:
+    type: Recreate # Cant run multiple Home Assistant instances concurrently
   selector:
     matchLabels:
       {{- include "home-assistant.selectorLabels" . | nindent 6 }}

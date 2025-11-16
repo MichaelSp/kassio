@@ -67,7 +67,7 @@ configuration:
 
 postgresql:
   enabled: false
-  # see bitnami/postgresql for more options: https://github.com/bitnami/charts/tree/main/bitnami/postgresql
+  # see cloudpirates postgresql for more options:  https://artifacthub.io/packages/helm/cloudpirates-postgres/postgres
 
 serviceAccount:
   # Specifies whether a service account should be created
