@@ -41,9 +41,9 @@ tests:
       mountPath: /dev/ttyUSB0
   asserts:
   - matchSnapshot: {}
-- it: has postgresql.enabled
+- it: has postgres.enabled
   set:
-    postgresql:
+    postgres:
       enabled: true
   asserts:
   - matchSnapshot: {}

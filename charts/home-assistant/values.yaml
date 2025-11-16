@@ -55,7 +55,7 @@ configuration:
     script: !include scripts.yaml
     scene: !include scenes.yaml
 
-    {{- if .Values.postgresql.enabled }}
+    {{- if .Values.postgres.enabled }}
     recorder:
       auto_purge: {{ default "true" .Values.configuration.recorder.auto_purge }}
       purge_keep_days: {{ default 4000 .Values.configuration.recorder.purge_keep_days }}
@@ -65,7 +65,7 @@ configuration:
     purge_keep_days: 4000
     auto_purge: true
 
-postgresql:
+postgres:
   enabled: false
   # see cloudpirates postgresql for more options:  https://artifacthub.io/packages/helm/cloudpirates-postgres/postgres
 

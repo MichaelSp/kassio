@@ -33,6 +33,8 @@ Matches the snapshot:
         matchLabels:
           app.kubernetes.io/instance: RELEASE-NAME
           app.kubernetes.io/name: home-assistant
+      strategy:
+        type: Recreate
       template:
         metadata:
           labels:
@@ -138,6 +140,8 @@ has /dev/ttyUSB0:
         matchLabels:
           app.kubernetes.io/instance: RELEASE-NAME
           app.kubernetes.io/name: home-assistant
+      strategy:
+        type: Recreate
       template:
         metadata:
           labels:
@@ -249,6 +253,8 @@ has config:
         matchLabels:
           app.kubernetes.io/instance: RELEASE-NAME
           app.kubernetes.io/name: home-assistant
+      strategy:
+        type: Recreate
       template:
         metadata:
           labels:
@@ -366,6 +372,8 @@ has extraConfigYaml:
         matchLabels:
           app.kubernetes.io/instance: RELEASE-NAME
           app.kubernetes.io/name: home-assistant
+      strategy:
+        type: Recreate
       template:
         metadata:
           labels:
@@ -436,7 +444,7 @@ has extraConfigYaml:
         app.kubernetes.io/version: 1.2.3
         helm.sh/chart: home-assistant-0.1.0
       name: RELEASE-NAME-home-assistant
-has postgresql.enabled:
+has postgres.enabled:
   1: |
     apiVersion: v1
     data:
@@ -475,6 +483,8 @@ has postgresql.enabled:
         matchLabels:
           app.kubernetes.io/instance: RELEASE-NAME
           app.kubernetes.io/name: home-assistant
+      strategy:
+        type: Recreate
       template:
         metadata:
           labels:
@@ -513,14 +523,14 @@ has postgresql.enabled:
                 - "DB_URL=postgresql://${DB_USER}:${DB_PASS}@${DB_HOST}/${DB_NAME};\nif grep -q 'postgres_db_url' /config/secrets.yaml; then \n  sed -i \"s#postgres_db_url:.*#postgres_db_url: ${DB_URL}#\" /config/secrets.yaml;\nelse \n  echo \"postgres_db_url: ${DB_URL}\" >> /config/secrets.yaml;\nfi\n"
               env:
                 - name: DB_HOST
-                  value: RELEASE-NAME-postgresql
+                  value: RELEASE-NAME-postgres
                 - name: DB_USER
                   value: postgres
                 - name: DB_PASS
                   valueFrom:
                     secretKeyRef:
                       key: postgres-password
-                      name: RELEASE-NAME -postgresql
+                      name: RELEASE-NAME -postgres
                 - name: DB_NAME
                   value: postgres
               image: alpine:3.7

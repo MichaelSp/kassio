@@ -50,7 +50,7 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
             {{- include "home-assistant.volumeMounts" . | nindent 12 }}
-      {{- if .Values.postgresql.enabled }}
+      {{- if .Values.postgres.enabled }}
       initContainers:
         - name: init-db
           image: alpine:3.7
@@ -66,16 +66,16 @@ spec:
               fi
           env:
             - name: DB_HOST
-              value: {{ .Release.Name | trunc 63 | trimSuffix "-" }}-postgresql
+              value: {{ .Release.Name | trunc 63 | trimSuffix "-" }}-postgres
             - name: DB_USER
-              value: {{ default "postgres" .Values.postgresql.auth.username }}
+              value: {{ default "postgres" .Values.postgres.auth.username }}
             - name: DB_PASS
               valueFrom:
                 secretKeyRef:
-                  name: {{ default (cat .Release.Name "-postgresql") .Values.postgresql.auth.existingSecret | trunc 63 | trimSuffix "-" }}
+                  name: {{ default (cat .Release.Name "-postgres") .Values.postgres.auth.existingSecret | trunc 63 | trimSuffix "-" }}
                   key: postgres-password
             - name: DB_NAME
-              value: {{ default "postgres" .Values.postgresql.auth.database }}
+              value: {{ default "postgres" .Values.postgres.auth.database }}
           volumeMounts:
             {{- include "home-assistant.volumeMounts" . | nindent 12 }}
       {{- end }}
