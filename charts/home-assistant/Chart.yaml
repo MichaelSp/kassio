@@ -32,7 +32,7 @@ version: 0.25.13-build1
 # follow Semantic Versioning. They should reflect the version the application is using.
 # It is recommended to use it with quotes.
 # see https://github.com/home-assistant/core/releases
-appVersion: "2025.12.3"
+appVersion: "2025.12.4"
 
 dependencies:
   - name: postgres
