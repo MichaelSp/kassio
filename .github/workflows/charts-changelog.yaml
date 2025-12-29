@@ -60,6 +60,10 @@ jobs:
         env:
           CHECK_BRANCH: "origin/${{ github.event.repository.default_branch }}"
         run: |
+          if [ -z "${{ inputs.modifiedCharts }}" ]; then
+            echo "No modified charts detected, skipping changelog annotation."
+            exit 0
+          fi
           pip install -r ./.github/scripts/requirements.txt
           ./.github/scripts/renovate-releasenotes.py --check-branch "$CHECK_BRANCH" ${{ inputs.modifiedCharts }}
 
