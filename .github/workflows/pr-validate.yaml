@@ -28,6 +28,7 @@ jobs:
 
   charts-changelog:
     uses: MichaelSp/kassio/.github/workflows/charts-changelog.yaml@main
+    if: needs.pr-metadata.outputs.addedOrModified == 'true'
     permissions:
       contents: write
     needs:
