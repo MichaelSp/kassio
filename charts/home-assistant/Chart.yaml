@@ -5,7 +5,7 @@ description: A Helm chart for Kubernetes
 annotations:
   artifacthub.io/changes: |-
     - kind: changed
-      description: Upgraded `postgres` chart dependency to version 0.13.0
+      description: Upgraded `postgres` chart dependency to version 0.13.6
 
 
 # A chart can be either an 'application' or a 'library' chart.
