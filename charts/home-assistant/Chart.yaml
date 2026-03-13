@@ -5,7 +5,7 @@ description: A Helm chart for Kubernetes
 annotations:
   artifacthub.io/changes: |-
     - kind: changed
-      description: Upgraded `postgres` chart dependency to version 0.17.0
+      description: Upgraded `postgres` chart dependency to version 0.18.0
 
 
 # A chart can be either an 'application' or a 'library' chart.
@@ -36,6 +36,6 @@ appVersion: "2026.2.3"
 
 dependencies:
   - name: postgres
-    version: 0.17.0
+    version: 0.18.0
     repository: oci://registry-1.docker.io/cloudpirates
     condition: postgres.enabled
