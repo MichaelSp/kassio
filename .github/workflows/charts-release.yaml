@@ -25,7 +25,8 @@ jobs:
         uses: yokawasa/action-setup-kube-tools@v0.13.5
         with:
           setup-tools: |
-            helmv3
+            helmv4
+          helm: "4.2.0"
 
       - name: Configure Git
         run: |
