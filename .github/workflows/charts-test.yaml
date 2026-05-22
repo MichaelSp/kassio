@@ -24,7 +24,7 @@ jobs:
       - name: Install helm-unittest plugin
         run: |
           if ! helm plugin list | sed 1d | awk '{print $1}' | grep -q '^unittest$'; then
-            helm plugin install https://github.com/helm-unittest/helm-unittest.git --version ~1
+            helm plugin install oci://ghcr.io/helm-unittest/helm-unittest/unittest:latest
           else
             echo "helm-unittest plugin already installed"
           fi
