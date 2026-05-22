@@ -30,7 +30,7 @@ jobs:
           fi
       - uses: d3adb5/helm-unittest-action@v2
         with:
-          helm-version: v3.8.0
+          helm-version: v4.2.0
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - run: helm lint charts/*
 
