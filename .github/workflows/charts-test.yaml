@@ -20,6 +20,14 @@ jobs:
         with:
           fetch-depth: 0
           ref: ${{ inputs.checkoutCommit }}
+
+      - name: Install helm-unittest plugin
+        run: |
+          if ! helm plugin list | sed 1d | awk '{print $1}' | grep -q '^unittest$'; then
+            helm plugin install oci://ghcr.io/helm-unittest/helm-unittest/unittest:latest --verify=false
+          else
+            echo "helm-unittest plugin already installed"
+          fi
       - uses: d3adb5/helm-unittest-action@v2
         with:
           helm-version: v4.2.0
