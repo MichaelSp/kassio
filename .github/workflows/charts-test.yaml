@@ -20,10 +20,29 @@ jobs:
         with:
           fetch-depth: 0
           ref: ${{ inputs.checkoutCommit }}
-      - uses: d3adb5/helm-unittest-action@v2
+
+      - name: Install Helm
+        uses: azure/setup-helm@v4.0.0
         with:
-          helm-version: v4.2.0
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          version: v4.2.0
+
+      - name: Install helm-unittest plugin
+        run: |
+          if ! helm plugin list | sed 1d | awk '{print $1}' | grep -q '^unittest$'; then
+            helm plugin install oci://ghcr.io/helm-unittest/helm-unittest/unittest:latest --verify=false
+          else
+            echo "helm-unittest plugin already installed"
+          fi
+
+      - name: Fetch chart dependencies
+        run: |
+          find . -type f -name 'Chart.yaml' -exec dirname {} \; | while read chart; do
+            helm dependency update "$chart" >/dev/null
+          done
+
+      - name: Run unit tests
+        run: helm unittest --color charts/*
+
       - run: helm lint charts/*
 
   generate-install-matrix:
