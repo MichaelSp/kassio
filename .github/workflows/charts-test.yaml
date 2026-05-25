@@ -41,7 +41,7 @@ jobs:
           done
 
       - name: Run unit tests
-        run: helm unittest --color charts/*
+        run: helm unittest charts/*
 
       - run: helm lint charts/*
 
