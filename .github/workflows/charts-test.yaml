@@ -28,8 +28,12 @@ jobs:
 
       - name: Install helm-unittest plugin
         run: |
+          # Ensure a clean state and install a pinned helm-unittest release (avoids pulling mutable :latest OCI artifacts)
+          helm plugin uninstall unittest || true
           if ! helm plugin list | sed 1d | awk '{print $1}' | grep -q '^unittest$'; then
-            helm plugin install oci://ghcr.io/helm-unittest/helm-unittest/unittest:latest --verify=false
+            # Install from the upstream GitHub release and pin to a known tag.
+            # Replace v0.2.8 with a newer validated tag if you prefer.
+            helm plugin install https://github.com/quintush/helm-unittest --version v0.2.8 --verify=false
           else
             echo "helm-unittest plugin already installed"
           fi
