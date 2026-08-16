@@ -16,23 +16,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
           ref: ${{ inputs.checkoutCommit }}
 
       - name: Install Helm
-        uses: azure/setup-helm@v5.0.0
+        uses: azure/setup-helm@v5.0.1
         with:
-          version: v4.2.1
+          version: v4.2.4
 
       - name: Install helm-unittest plugin
-        run: |
-          if ! helm plugin list | sed 1d | awk '{print $1}' | grep -q '^unittest$'; then
-            helm plugin install https://github.com/helm-unittest/helm-unittest.git --verify=false
-          else
-            echo "helm-unittest plugin already installed"
-          fi
+        run: helm plugin install https://github.com/helm-unittest/helm-unittest --version v1.1.2 --verify=false
 
       - name: Fetch chart dependencies
         run: |
@@ -56,7 +51,7 @@ jobs:
       detected: ${{ steps.list-changed.outputs.detected }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
           ref: ${{ inputs.checkoutCommit }}
@@ -89,7 +84,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
           ref: ${{ inputs.checkoutCommit }}
