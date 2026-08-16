@@ -47,7 +47,7 @@ jobs:
       chartChangesDetected: ${{ needs.pr-metadata.outputs.addedOrModified }}
 
   charts-test:
-    uses: MichaelSp/kassio/.github/workflows/charts-test.yaml@main
+    uses: ./.github/workflows/charts-test.yaml
     needs:
       - pr-metadata
     with:
