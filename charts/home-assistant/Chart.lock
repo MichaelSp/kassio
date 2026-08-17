@@ -1,6 +1,6 @@
 dependencies:
 - name: postgres
   repository: oci://registry-1.docker.io/cloudpirates
-  version: 0.20.0
-digest: sha256:c97401fd228f58befed012c4bdb87772d1545d54aa062f9f0144291d8fce2a9d
-generated: "2026-08-16T15:18:05.211487464Z"
+  version: 0.20.1
+digest: sha256:b48e090b14cb8a5fca18c0ebaa02b890dbe8cd02097397596be0c628913a4e89
+generated: "2026-08-17T11:38:19.009986381Z"
