@@ -36,6 +36,6 @@ appVersion: "2026.8.2"
 
 dependencies:
   - name: postgres
-    version: 0.20.0
+    version: 0.20.1
     repository: oci://registry-1.docker.io/cloudpirates
     condition: postgres.enabled
