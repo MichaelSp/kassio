@@ -17,17 +17,17 @@ concurrency:
 
 jobs:
   pr-metadata:
-    uses: MichaelSp/kassio/.github/workflows/pr-metadata.yaml@main
+    uses: ./.github/workflows/pr-metadata.yaml
 
   pre-commit-check:
-    uses: MichaelSp/kassio/.github/workflows/pre-commit-check.yaml@main
+    uses: ./.github/workflows/pre-commit-check.yaml
     needs:
       - pr-metadata
     with:
       modifiedFiles: ${{ needs.pr-metadata.outputs.addedOrModifiedFiles }}
 
   charts-changelog:
-    uses: MichaelSp/kassio/.github/workflows/charts-changelog.yaml@main
+    uses: ./.github/workflows/charts-changelog.yaml
     if: needs.pr-metadata.outputs.addedOrModified == 'true'
     permissions:
       contents: write
@@ -39,7 +39,7 @@ jobs:
       modifiedCharts: ${{ needs.pr-metadata.outputs.addedOrModifiedCharts }}
 
   charts-lint:
-    uses: MichaelSp/kassio/.github/workflows/charts-lint.yaml@main
+    uses: ./.github/workflows/charts-lint.yaml
     needs:
       - pr-metadata
       - charts-changelog
@@ -48,7 +48,7 @@ jobs:
       chartChangesDetected: ${{ needs.pr-metadata.outputs.addedOrModified }}
 
   charts-test:
-    uses: MichaelSp/kassio/.github/workflows/charts-test.yaml@main
+    uses: ./.github/workflows/charts-test.yaml
     needs:
       - pr-metadata
       - charts-changelog
