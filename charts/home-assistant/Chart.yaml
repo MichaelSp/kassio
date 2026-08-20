@@ -5,7 +5,7 @@ description: A Helm chart for Kubernetes
 annotations:
   artifacthub.io/changes: |-
     - kind: changed
-      description: Upgraded `postgres` chart dependency to version 0.12.4
+      description: Upgraded `postgres` chart dependency to version 0.20.1
 
 
 # A chart can be either an 'application' or a 'library' chart.
@@ -25,17 +25,17 @@ maintainers:
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 0.25.13-build1
+version: 26.8.4
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
 # follow Semantic Versioning. They should reflect the version the application is using.
 # It is recommended to use it with quotes.
 # see https://github.com/home-assistant/core/releases
-appVersion: "2025.12.3"
+appVersion: "2026.8.2"
 
 dependencies:
   - name: postgres
-    version: 0.12.4
+    version: 0.20.1
     repository: oci://registry-1.docker.io/cloudpirates
     condition: postgres.enabled

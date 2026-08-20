@@ -42,7 +42,6 @@ jobs:
     uses: ./.github/workflows/charts-lint.yaml
     needs:
       - pr-metadata
-      - charts-changelog
     with:
       checkoutCommit: ${{ needs.charts-changelog.outputs.commitHash }}
       chartChangesDetected: ${{ needs.pr-metadata.outputs.addedOrModified }}
@@ -51,7 +50,6 @@ jobs:
     uses: ./.github/workflows/charts-test.yaml
     needs:
       - pr-metadata
-      - charts-changelog
     with:
       checkoutCommit: ${{ needs.charts-changelog.outputs.commitHash }}
       chartChangesDetected: ${{ needs.pr-metadata.outputs.addedOrModified }}
