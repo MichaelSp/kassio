@@ -14,4 +14,19 @@
       depNameTemplate: "home-assistant/core",
     },
   ],
+  packageRules: [
+    {
+      description: "Bump chart version with dependency update",
+      matchFileNames: ["charts/**/Chart.yaml"],
+      bumpVersions: [
+        {
+          name: "Bump Helm chart version",
+          filePatterns: ["{{packageFileDir}}/Chart.{yaml,yml}"],
+          matchStrings: ["(?:^|\\n)version:\\s+(?<version>\\S+)"],
+          bumpType:
+            "{{#if isMajor}}major{{else}}{{#if isMinor}}minor{{else}}patch{{/if}}{{/if}}",
+        },
+      ],
+    },
+  ],
 }
