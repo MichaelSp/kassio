@@ -6,6 +6,28 @@ entries:
         - kind: changed
           description: Upgraded `postgres` chart dependency to version 0.20.1
     apiVersion: v2
+    appVersion: 2026.11.0
+    created: "2026-11-08T15:03:58.52653249Z"
+    dependencies:
+    - condition: postgres.enabled
+      name: postgres
+      repository: oci://registry-1.docker.io/cloudpirates
+      version: 0.20.5
+    description: A Helm chart for Kubernetes
+    digest: 633ff1f928aee6be82224423cccb45382e09587078d2d12b19aa498afa60703a
+    maintainers:
+    - email: 448282+MichaelSp@users.noreply.github.com
+      name: MichaelSp
+    name: home-assistant
+    type: application
+    urls:
+    - https://github.com/MichaelSp/kassio/releases/download/home-assistant-26.11.0/home-assistant-26.11.0.tgz
+    version: 26.11.0
+  - annotations:
+      artifacthub.io/changes: |-
+        - kind: changed
+          description: Upgraded `postgres` chart dependency to version 0.20.1
+    apiVersion: v2
     appVersion: 2026.10.4
     created: "2026-10-27T23:25:50.544188848Z"
     dependencies:
@@ -1271,4 +1293,4 @@ entries:
     urls:
     - https://github.com/MichaelSp/kassio/releases/download/home-assistant-0.1.1/home-assistant-0.1.1.tgz
     version: 0.1.1
-generated: "2026-10-27T23:25:50.544429569Z"
+generated: "2026-11-08T15:03:58.526765919Z"
